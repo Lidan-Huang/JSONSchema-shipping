@@ -10,7 +10,7 @@ describe("POST /", function () {
       productId: 1000,
       name: "Test Tester",
       addr: "100 Test St",
-      zip: "12345-6789",
+      zipcode: "12345-6789",
     });
 
     expect(resp.body).toEqual({ shipped: expect.any(Number) });
