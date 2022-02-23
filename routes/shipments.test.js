@@ -1,11 +1,17 @@
 "use strict";
 
+const shipItApi = require("../shipItApi");
+
+shipItApi.shipProduct = jest.fn();
+shipItApi.shipProducts = jest.fn();
 const request = require("supertest");
 const app = require("../app");
 
 
 describe("POST /", function () {
   test("Valid", async function () {
+    shipItApi.shipProduct.mockReturnValue(1234);
+
     const resp = await request(app).post("/shipments").send({
       shipment: {
         productId: 1000,
@@ -15,7 +21,7 @@ describe("POST /", function () {
       }
     });
 
-    expect(resp.body).toEqual({ shipped: expect.any(Number) });
+    expect(resp.body).toEqual({ shipped: 1234 });
   });
 
   test("Not valid - No shipment key", async function () {
